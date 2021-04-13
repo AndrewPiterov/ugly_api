@@ -30,18 +30,18 @@ Video version available on YouTube on Russian
 So, let’s start.
 
 ## REST vs Non REST architecture
+
 The fact that the API architecture is not implemented in the RESTful style was the first disappointment. To be honest, I don’t remember when I had to face such a situation.
 
 REST stands for **RE**presentational **S**tate **T**ransfer. RESTful is a sort of API architecture implementation that makes use of the HTTP protocol in the best way possible. With REST, we need to think about the app in terms of resources and to determine which resources we want to expose to the outside world (for example, tasks, customers, etc.). Here we use the verbs defined by the HTTP protocol to perform CRUD operations on these resources, such as GET, POST, PUT, DELETE, etc.
 
-
 Here is a RESTful API example:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/2_1_RESTfull_example.png "RESTful sample")
 
 My project’s API architecture that is non-RESTful architecture looks like this:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/2_2_non-RESTfull_example.png "Non-RESTful sample")
 
 You can see that all requests are presented in the same type — these are POST requests. And each request must contain a type parameter that defines the operation. Apparently, on the server, in this single endpoint, there are some if-else or switch-statements for checking this parameter.
 
