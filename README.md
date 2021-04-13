@@ -1,5 +1,7 @@
 # Ugly API
 
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/0_cover_final.jpg "Ugly API")
+
 In this article, I’d like to talk about the problems I faced while integrating an API for the HTTP protocol and share my experience in solving them.
 
 **Table Of Contents:**
