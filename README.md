@@ -61,17 +61,17 @@ Thus, I determined that the response type from the server changed from applicati
 
 I decided to try using Accept Header in a request that will tell the server something that “I’m a client expecting a json response from you”. But it didn’t work because the server doesn’t consider this header.
 
-<https://cdn.statically.io/screenshot/:url>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/3_1_header_accept.png "Accept Header")
 
 And again, I had to add even more code to work around this server response type issue.
 
 1. Added a new version of the request to Retrofit where I expect a response as “String” type in the second version
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/3_2_second_sign_in.png "Accept Header")
 
 2. Then I started initiating a new version of the query that returns a String and added a conversion String to object. Meanwhile, Retrofit could do this conversion itself in the code it generated. And now, in every place where we make requests to the server, we must add this conversion ourselves to receive responses from it:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/3_3_second_sign_in_use.png "Accept Header")
 
 As a result, even more code lines were added, which is not encouraging.
 
@@ -80,15 +80,15 @@ As a result, even more code lines were added, which is not encouraging.
 
 There are several types of formatting field names in json:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/4_1_json_keys_case_types.png "JSON keys case types")
 
 In an ideal scenario, you need to choose one option you like and comply with it during the whole project and in all requests. But in my project, the backend developer decided to mix several types:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/4_2_json_mixed.png "JSON keys case types mix")
 
 In an ideal scenario, the camelCase style is used for naming class fields and methods in Dart. And if json comes from the server with fields in camelCase style, then Retrofit will automatically, without any effort, correctly match the class and json fields. But in this situation, I have to specify additional JsonKey annotations, which are as snake_case in one case, and as UPPER_CASE_SNAKE_CASE in the other one:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/4_3_json_mixing.png "JSON keys case types mixing")
 
 As a result, there is no uniformity; if you make a mistake in the case type, you can lose the meaning since the fields will not match. I got even angrier at the API, but the integration with the API could still be continued with more effort and even more code.
 
@@ -96,11 +96,11 @@ As a result, there is no uniformity; if you make a mistake in the case type, you
 
 Here I almost got heart attack… When I tried to log into the app as a different user, my app broke again. I got the following error: “Could not convert String to Int”. This was due to the fact that my class describing the response from the server became incorrect. The types described in the class don’t correspond to the types of fields available in the json response. I opened Insomnia again and ran the same login request for two different users. And I found that the numbers come as Strings in response in one case, and they come as numbers in the other one. 🤯 You can see that in Insomnia, the lines are highlighted in yellow, and the numbers are in purple:
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/5_diff_responce.png "Different response to the same request")
 
 How can it be that the same json arrives for the same request, but with different types of values?
 
-<image>
+![alt text](https://github.com/AndrewPiterov/ugly_api/blob/main/screenshots/6_Homer_boom.png "Homer boom")
 
 I know the server was written in PHP. Folks, who encode in PHP, could you write in the comments how is this possible?
 
